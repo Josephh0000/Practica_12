@@ -1,0 +1,41 @@
+from time import time
+import matplotlib.pyplot as plt
+
+# Asumiendo que ambos archivos están en la misma carpeta, importamos las funciones:
+from fibonacci_des import fib_des, fib_asc
+
+tiempo_asc = []
+tiempo_des = []
+tiempo_rec = []
+
+# Medición de tiempos
+for i in range(1, 41):
+    # Tiempo para fib_des
+    t0 = time()
+    fib_des(i)
+    tiempo_des.append(round(time()-t0, 6))
+
+    # Tiempo para fib_asc
+    t0 = time()
+    fib_asc(i)
+    tiempo_asc.append(round(time()-t0, 6))
+
+# Creación del eje X (Datos)
+datos = []
+for i in range(1, 41):
+    datos.append(i)
+
+# Creación de la gráfica
+fig, ax = plt.subplots()
+
+# Corrección: aquí cambiamos 'tiempo_asc' por 'tiempo_des' en la primera gráfica
+ax.plot(datos, tiempo_des, label="fib_des", marker="*", color="r")
+ax.plot(datos, tiempo_asc, label="fib_asc", marker="o", color="g")
+
+ax.set_xlabel("Datos")
+ax.set_ylabel("Tiempo")
+ax.grid(True)
+ax.legend(loc=2)
+
+plt.title("Tiempos de ejecución [s] fib_des vs fib_asc")
+plt.show() # Añadido para que la ventana de la gráfica se abra correctamente
